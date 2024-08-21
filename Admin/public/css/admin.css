@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.gap-10 {
+  gap: 10px;
+}
+
+.container-fluid.content-page-admin {
+  overflow-y: scroll;
+  height: 100vh !important;
+  width: 100%;
+}
+::-webkit-scrollbar {
+  display: none; /* Ẩn thanh cuộn */
+}
+.sticky-footer {
+  position: sticky;
+  bottom: 0;
+}
+canvas#revenueChart {
+  width: 48% !important;
+  height: auto !important;
+}
+.table-top-customer-index {
+  margin-top: 30px;
+  overflow-y: scroll;
+  margin-bottom: 0;
+}
+select#revenueType {
+  width: 20%;
+}
+.heigh-line {
+  font-size: 25px;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: black;
+  margin: 0;
+}
