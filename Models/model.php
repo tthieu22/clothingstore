@@ -21,7 +21,7 @@ class model
         $query =  "SELECT * from DanhMuc ";
 
         require("result.php");
-        
+
         return $data;
     }
     function chitietdanhmuc($id)
@@ -29,7 +29,7 @@ class model
         $query =  "SELECT d.TenDM as Ten, l.* FROM danhmuc as d, loaisanpham as l WHERE d.MaDM = l.MaDM and d.MaDM = $id";
 
         require("result.php");
-        
+
         return $data;
     }
 
@@ -38,7 +38,7 @@ class model
         $query =  "SELECT d.TenDM as Ten, l.* FROM danhmuc as d, loaisanpham as l WHERE d.MaDM = l.MaDM and d.MaDM = $id";
 
         require("result.php");
-        
+
         return $data;
     }
 
@@ -46,15 +46,15 @@ class model
     {
         $query = "SELECT * FROM SanPham WHERE TrangThai = 1 ORDER BY RAND () LIMIT $id";
         require("result.php");
-        
+
         return $data;
     }
-    function banner($a,$b)
+    function banner($a, $b)
     {
         $query =  "SELECT * from Banner  limit $a,$b";
 
         require("result.php");
-        
+
         return $data;
     }
     function sanpham_danhmuc($a, $b, $danhmuc)
@@ -62,7 +62,15 @@ class model
         $query =   "SELECT * from sanpham WHERE TrangThai = 1  and MaDM = $danhmuc ORDER BY ThoiGian DESC limit $a,$b";
 
         require("result.php");
-        
+
+        return $data;
+    }
+    function chitiet($MaLSP, $MaDM)
+    {
+        $query =  "SELECT * from sanpham WHERE TrangThai = 1 and MaLSP = $MaLSP and MaDM = $MaDM ORDER BY ThoiGian DESC";
+
+        require("result.php");
+
         return $data;
     }
 }

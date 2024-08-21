@@ -34,39 +34,39 @@ class LoginController
     }
     function dangky()
     {
-        $check1 = 0;//1
-        $check2 = 0;//1
-        $data_check = $this->login_model->check_account();//1
-        foreach ($data_check as $value) {//2
-            if ($value['Email'] == $_POST['Email'] || $value['TaiKhoan'] == $_POST['TaiKhoan']) {//3
-                $check1 = 1;//4
+        $check1 = 0;
+        $check2 = 0;
+        $data_check = $this->login_model->check_account();
+        foreach ($data_check as $value) {
+            if ($value['Email'] == $_POST['Email'] || $value['TaiKhoan'] == $_POST['TaiKhoan']) {
+                $check1 = 1;
             }
         }
 
-        if ($_POST['MatKhau'] != $_POST['check_password']) {//5
-            $check2 = 1;//6
+        if ($_POST['MatKhau'] != $_POST['check_password']) {
+            $check2 = 1;
         }
 
-        $data = array( //7
-            'Ho' =>    $_POST['Ho'],
-            'Ten'  =>   $_POST['Ten'],
-            'GioiTinh' => "",
+        $data = array(
+            'Ho' => $_POST['Ho'],
+            'Ten' => $_POST['Ten'],
+            'GioiTinh' => $_POST['GioiTinh'],
             'SDT' => $_POST['SĐT'],
-            'Email' =>    $_POST['Email'],
-            'DiaChi'  =>   "",
+            'Email' => $_POST['Email'],
+            'DiaChi' => $_POST['DiaChi'],
             'TaiKhoan' => $_POST['TaiKhoan'],
             'MatKhau' => md5($_POST['MatKhau']),
-            'MaQuyen' =>  '1',
-            'TrangThai'  =>  '1',
+            'MaQuyen' => '1',
+            'TrangThai' => '1',
         );
-        foreach ($data as $key => $value) {//8
-            if (strpos($value, "'") != false) {//9
-                $value = str_replace("'", "\'", $value);//10
-                $data[$key] = $value;//10
+        foreach ($data as $key => $value) {
+            if (strpos($value, "'") != false) {
+                $value = str_replace("'", "\'", $value);
+                $data[$key] = $value;
             }
         }
 
-        $this->login_model->dangky_action($data, $check1, $check2);//11
+        $this->login_model->dangky_action($data, $check1, $check2);
     }
     function dangxuat()
     {
@@ -90,12 +90,12 @@ class LoginController
 
         if (isset($_POST['Ho'])) {
             $data = array(
-                'Ho' =>    $_POST['Ho'],
-                'Ten'  =>   $_POST['Ten'],
+                'Ho' => $_POST['Ho'],
+                'Ten' => $_POST['Ten'],
                 'GioiTinh' => $_POST['GioiTinh'],
                 'SDT' => $_POST['SĐT'],
-                'Email' =>    $_POST['Email'],
-                'DiaChi'  =>   $_POST['DiaChi'],
+                'Email' => $_POST['Email'],
+                'DiaChi' => $_POST['DiaChi'],
             );
             foreach ($data as $key => $value) {
                 if (strpos($value, "'") != false) {
@@ -119,5 +119,48 @@ class LoginController
             }
         }
         header('location: ?act=taikhoan&xuli=account#doitk');
+    }
+
+    function forgot_password()
+    {
+        require_once('Views/login/forgot_password.php');
+    }
+
+    function forgot_password_action()
+    {
+        $email = $_POST['email'];
+        $token = bin2hex(random_bytes(50));
+        $this->login_model->store_reset_token($email, $token);
+        $reset_link = "http://localhost/banhanghdt/password_resets.php?token=" . $token;  // Sử dụng localhost cho môi trường phát triển
+        // Code to send email with $reset_link
+        setcookie('msg_forgot', 'Liên kết đặt lại mật khẩu đã được gửi tới email của bạn', time() + 2);
+        header('location: ?act=login&xuli=forgot_password');
+    }
+
+    function reset_password()
+    {
+        require_once('Views/password_resets.php');
+    }
+
+    function reset_password_action()
+    {
+        $token = $_POST['token'];
+        $new_password = $_POST['new_password'];
+        $confirm_password = $_POST['confirm_password'];
+
+        if ($new_password == $confirm_password) {
+            $is_reset = $this->login_model->reset_password($token, md5($new_password));
+
+            if ($is_reset) {
+                setcookie('msg_reset', 'Mật khẩu của bạn đã được đặt lại thành công', time() + 2);
+                header('location: ?act=login');
+            } else {
+                setcookie('msg_reset', 'Token không hợp lệ hoặc đã hết hạn', time() + 2);
+                header('location: ?act=login&xuli=reset_password&token=' . $token);
+            }
+        } else {
+            setcookie('msg_reset', 'Mật khẩu xác nhận không khớp', time() + 2);
+            header('location: ?act=login&xuli=reset_password&token=' . $token);
+        }
     }
 }

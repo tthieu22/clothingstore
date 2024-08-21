@@ -21,7 +21,7 @@
 		<div class="row">
 			<!-- Category-left -->
 			<div class="col-xs-12 col-sm-4 col-md-3">
-				<?php require_once("category.php") ?>
+				<?php require_once ("category.php") ?>
 			</div>
 			<div class="col-xs-12 col-sm-8 col-md-9">
 				<div class="right-products">
@@ -37,21 +37,28 @@
 						</div>
 					</div>
 					<div class="row">
-						<?php require_once("list-products.php") ?>
+						<?php require_once ("list-products.php") ?>
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="pagnation-ul">
 								<ul class="clearfix">
-									<?php if ($data_tong > 9 and isset($test)) {
-										for ($i = 1; $i <= $data_tong / 9; $i++) { ?>
-											<li><a href="?act=shop&trang=<?= $i ?>"><?= $i ?></a></li>
-									<?php }
+									<?php
+									if ($data_tong > 9) {
+										$current_page = isset($_GET['trang']) ? $_GET['trang'] : 1;
+										$total_pages = ceil($data_tong / 9);
+
+										for ($i = 1; $i <= $total_pages; $i++) {
+											$active_class = ($i == $current_page) ? 'class="active"' : '';
+											?>
+											<li><a <?= $active_class ?> href="?act=shop&trang=<?= $i ?>"><?= $i ?></a></li>
+										<?php
+										}
 									}
 									?>
-
 								</ul>
 							</div>
+							<!--  -->
 						</div>
 					</div>
 				</div>
@@ -62,6 +69,6 @@
 <!-- products-view content section end -->
 <!-- quick view start -->
 <?php
-include_once("Views/quickview.php");
+include_once ("Views/quickview.php");
 ?>
 <!-- quick view end -->

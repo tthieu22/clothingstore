@@ -1,5 +1,5 @@
 <?php if (isset($_SESSION['isLogin_Admin']) && $_SESSION['isLogin_Admin'] == true) { ?>
-<a href="?mod=sanpham&act=add" type="button" class="btn btn-primary">Thêm mới</a>
+  <a href="?mod=sanpham&act=add" type="button" class="btn btn-primary">Thêm mới</a>
 <?php } ?>
 <?php if (isset($_COOKIE['msg'])) { ?>
   <div class="alert alert-success">
@@ -13,6 +13,7 @@
       <th scope="col">Mã sản phẩm</th>
       <th scope="col">Tài sản phẩm</th>
       <th scope="col">Giá thành</th>
+      <th scope="col">Giá nhập</th>
       <th scope="col">Số lượng</th>
       <th scope="col">Trạng thái</th>
       <th>#</th>
@@ -24,13 +25,14 @@
         <th scope="row"><?= $row['MaSP'] ?></th>
         <td><?= $row['TenSP'] ?></td>
         <td><?= $row['DonGia'] ?> VNĐ</td>
+        <td><?= $row['GiaNhap'] ?> VNĐ</td>
         <td><?= $row['SoLuong'] ?></td>
         <td><?= $row['TrangThai'] ?></td>
         <td>
           <a href="../index.php?act=detail&id=<?= $row['MaSP'] ?>" type="button" class="btn btn-success" target="_blank">Xem</a>
           <?php if (isset($_SESSION['isLogin_Admin']) && $_SESSION['isLogin_Admin'] == true) { ?>
-          <a href="?mod=sanpham&act=edit&id=<?= $row['MaSP'] ?>" type="button" class="btn btn-warning">Sửa</a>
-          <a href="?mod=sanpham&act=delete&id=<?= $row['MaSP'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Xóa</a>
+            <a href="?mod=sanpham&act=edit&id=<?= $row['MaSP'] ?>" type="button" class="btn btn-warning">Sửa</a>
+            <a href="?mod=sanpham&act=delete&id=<?= $row['MaSP'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Xóa</a>
           <?php } ?>
         </td>
       </tr>

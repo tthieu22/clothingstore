@@ -2,53 +2,53 @@
 require_once("model.php");
 class Shop extends Model
 {
-    
-    function loaisp($a,$b)
+
+    function loaisp($a, $b)
     {
         $query = "SELECT * FROM loaisanpham WHERE   MaDM = 1 LIMIT $a, $b";
 
         require("result.php");
-        
+
         return $data;
     }
     function keywork($a)
     {
-        $a = "'%".$a."%'";
+        $a = "'%" . $a . "%'";
         $query = "SELECT * FROM sanpham WHERE  TenSP LIKE $a LIMIT 0,9";
 
         require("result.php");
-        
+
         return $data;
     }
-    function dongia($a,$b)
+    function dongia($a, $b)
     {
-        if($a ==0 ){
+        if ($a == 0) {
             $a = "30000";
-        }else{
-            $a = $a."000000";
+        } else {
+            $a = $a . "000000";
         }
-        $b = $b."000000";
+        $b = $b . "000000";
         $query = "SELECT * FROM sanpham WHERE  DonGia > $a AND DonGia < $b  LIMIT 0, 9";
 
         require("result.php");
-    
+
         return $data;
     }
 
-    function chitiet_loai($loai,$sp)
+    function chitiet_loai($loai, $sp)
     {
         $query = "SELECT * FROM loaisanpham WHERE  TenLSP = '$loai' and MaDM = $sp";
 
         require("result.php");
-        
+
         return $data;
     }
-    function chitiet($id,$sp)
+    function chitiet($id, $sp)
     {
         $query = "SELECT * FROM sanpham WHERE  MaLSP = '$id' and MaDM = $sp";
 
         require("result.php");
-        
+
         return $data;
     }
     function sanpham_noibat()
@@ -69,10 +69,17 @@ class Shop extends Model
 
         return $this->conn->query($query)->fetch_assoc();
     }
-    function count_sp_ctdm($dm,$ctdm)
+    function count_sp_ctdm($dm, $ctdm)
     {
-        $query = "SELECT COUNT(MaSP) as tong FROM sanpham WHERE MaDM = $dm And MaLSP = $ctdm";
+        $query = "SELECT COUNT(MaSP) as tong FROM sanpham WHERE MaDM = ? AND MaLSP = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("ii", $dm, $ctdm); // ii = hai số nguyên
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        return $this->conn->query($query)->fetch_assoc();
+        if (!$result) {
+            die("Query failed: " . $this->conn->error);
+        }
+        return $result->fetch_assoc();
     }
 }

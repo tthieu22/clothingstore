@@ -1,8 +1,7 @@
  <!-- Sidebar -->
- <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
+ <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 <!-- Sidebar - Brand -->
-<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="../?act=home">
   <div class="sidebar-brand-icon rotate-n-15">
   <i class="fa-solid fa-headphones"></i>
   </div>
@@ -25,7 +24,7 @@
 <li class="nav-item">
   <a class="nav-link" href="index.php">
     <i class="fas fa-fw fa-chart-area"></i>
-    <span>Thống kê</span></a>
+    <span>Trang chủ</span></a>
 </li>
 <?php } ?>
 <!-- Nav Item - Charts -->

@@ -17,6 +17,8 @@
 
   <!-- Custom styles for this template-->
   <link href="public/css/./sb-admin-2.min.css" rel="stylesheet" type="text/css">
+  <link href="public/css/admin.css" rel="stylesheet" >
+
   <script src="public/vendor/jquery/jquery.min.js"></script>
 
   <!-- summernote-->
@@ -26,11 +28,12 @@
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
   <!-- Data table -->
   <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 
-<body id="page-top">
+<body id="page-top" class="sidebar-toggled">
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -43,21 +46,21 @@
       <div id="content">
         <?php require_once('header.php') ?>
         <!-- Begin Page Content -->
-        <div class="container-fluid">
-
-          <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-
+        <div class="container-fluid content-page-admin ">
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">
-                <?php
-                $mod = isset($_GET['mod']) ? $_GET['mod'] : "login";
-                echo "Database " . $mod;
-                ?>
+                  <?php
+                  $mod = isset($_GET['mod']) ? $_GET['mod'] : "login";
+                  if ($mod === "login") {
+                      $mod = "thống kê";  // Thêm dấu chấm phẩy ở đây
+                  }
+                  echo "Thông tin " . $mod;
+                  ?>
               </h6>
-            </div>
+          </div>
+
             <div class="card-body">
               <div class="table-responsive">
                 <?php

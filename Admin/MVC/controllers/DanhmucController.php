@@ -57,16 +57,16 @@ class DanhmucController
 	}
 	public function update()
 	{
-		$data = array(//1
+		$data = array(
 			'MaDM' => $_POST['MaDM'],
 			'TenDM' => $_POST['TenDM'],
 		);
-		foreach ($data as $key => $value) {//2
-            if (strpos($value, "'") != false) {//3
-                $value = str_replace("'", "\'", $value);//4
-                $data[$key] = $value;//4
+		foreach ($data as $key => $value) {
+            if (strpos($value, "'") != false) {
+                $value = str_replace("'", "\'", $value);
+                $data[$key] = $value;
             }
         }
-		$this->danhmuc_model->update($data);//5
+		$this->danhmuc_model->update($data);
 	}
 }

@@ -5,7 +5,7 @@
 <?php } ?>
 <hr>
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-    <form action="?mod=loaisanpham&act=update" method="POST" role="form" enctype="multipart/form-data" onsubmit="return validateForm()">
+    <form action="?mod=loaisanpham&act=update" method="POST" role="form" enctype="multipart/form-data">
         <input type="hidden" name="MaLSP" value="<?= $data_detail['MaLSP'] ?>">
         <div class="form-group">
             <label for="">Tên loại sản phẩm</label>
@@ -22,28 +22,12 @@
         </div>
         <div class="form-group">
             <label for="cars">Danh mục: </label>
-            <select id="categorySelect" name="MaDM" class="form-control">
-                <option value="select" selected>Select danh mục</option>
+            <select id="" name="MaDM" class="form-control">
                 <?php foreach ($data as $row) { ?>
-                    <option <?= ($data_detail['MaDM'] == $row['MaDM'] ) ?> value="<?= $row['MaDM'] ?>" > <?=$row['TenDM']?> </option>
+                    <option <?= ($data_detail['MaDM'] == $row['MaDM'] ) ? 'selected' : '' ?> value="<?= $row['MaDM'] ?>"> <?=$row['TenDM']?></option>
                 <?php } ?>
             </select>
-            <span id="error-message" class="text-danger" style="display:none;">Vui lòng chọn danh mục sản phẩm</span>
         </div>
         <button type="submit" class="btn btn-primary">Cập nhật</button>
     </form>
 </table>
-
-<script>
-    function validateForm() {
-        const categorySelect = document.getElementById('categorySelect');
-        const errorMessage = document.getElementById('error-message');
-        if (categorySelect.value === 'select') {
-            errorMessage.style.display = 'block';
-            return false; 
-        } else {
-            errorMessage.style.display = 'none';
-        }
-        return true; 
-    }
-</script>

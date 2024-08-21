@@ -74,17 +74,18 @@ class LoaisanphamController
 	}
 	public function update()
 	{
-		$target_dir = "../public/img/company/";  //1
+		$target_dir = "../public/img/company/";  // thư mục chứa file upload
 
-        $HinhAnh = "";//1
-        $target_file = $target_dir . basename($_FILES["HinhAnh"]["name"]); //1
-        $status_upload = move_uploaded_file($_FILES["HinhAnh"]["tmp_name"], $target_file);//1
+        $HinhAnh = "";
+        $target_file = $target_dir . basename($_FILES["HinhAnh"]["name"]); // link sẽ upload file lên
 
-        if ($status_upload) { //2
-            $HinhAnh =  basename($_FILES["HinhAnh"]["name"]);//3
+        $status_upload = move_uploaded_file($_FILES["HinhAnh"]["tmp_name"], $target_file);
+
+        if ($status_upload) { // nếu upload file không có lỗi 
+            $HinhAnh =  basename($_FILES["HinhAnh"]["name"]);
 		}
 
-		$data = array(//4
+		$data = array(
 			'MaLSP' => $_POST['MaLSP'],
 			'TenLSP' => $_POST['TenLSP'],
 			'HinhAnh' => $HinhAnh,
@@ -92,12 +93,15 @@ class LoaisanphamController
 			'MaDM' => $_POST['MaDM']
 		);
 
-		foreach ($data as $key => $value) {//5
-            if (strpos($value, "'") != false) {//6
-                $value = str_replace("'", "\'", $value);//7
-                $data[$key] = $value;//7
+		foreach ($data as $key => $value) {
+            if (strpos($value, "'") != false) {
+                $value = str_replace("'", "\'", $value);
+                $data[$key] = $value;
             }
 		}
-		$this->loaisanpham_model->update($data);//8
+		if ($HinhAnh == "") {
+            unset($data['HinhAnh']);
+        }
+		$this->loaisanpham_model->update($data);
 	}
 }

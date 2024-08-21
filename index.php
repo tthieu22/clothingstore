@@ -61,6 +61,12 @@ switch ($mod) {
             case 'deleteall':
                 $controller_obj->deleteall_cart();
                 break;
+            case 'apply_coupon':
+                $controller_obj->applyCoupon();
+                break;
+            case 'remove_coupon':
+                $controller_obj->removeCoupons();
+                break;
             default:
                 $controller_obj->list_cart();
                 break;
@@ -70,7 +76,7 @@ switch ($mod) {
         $act = isset($_GET['xuli']) ? $_GET['xuli'] : "taikhoan";
         require_once('Controllers/LoginController.php');
         $controller_obj = new LoginController();
-        if ((isset($_SESSION['isLogin']) && $_SESSION['isLogin'] == true)) {
+        if (isset($_SESSION['isLogin']) && $_SESSION['isLogin'] == true) {
             switch ($act) {
                 case 'dangxuat':
                     $controller_obj->dangxuat();
@@ -81,11 +87,11 @@ switch ($mod) {
                 case 'update':
                     $controller_obj->update();
                     break;
+
                 default:
                     header('location: ?act=error');
                     break;
             }
-            break;
         } else {
             if ((isset($_SESSION['isLogin_Admin']) && $_SESSION['isLogin_Admin'] == true) || (isset($_SESSION['isLogin_Nhanvien']) && $_SESSION['isLogin_Nhanvien'] == true)) {
                 switch ($act) {
@@ -102,7 +108,6 @@ switch ($mod) {
                         header('location: ?act=error');
                         break;
                 }
-                break;
             } else {
                 switch ($act) {
                     case 'login':
@@ -114,16 +119,32 @@ switch ($mod) {
                     case 'dangky':
                         $controller_obj->dangky();
                         break;
+                    case 'forgot_password': // Xử lý quên mật khẩu
+                        $controller_obj->forgot_password();
+                        break;
+                    case 'reset_password': // Xử lý đặt lại mật khẩu
+                        $controller_obj->reset_password();
+                        break;
                     default:
                         $controller_obj->login();
                         break;
                 }
-                break;
             }
         }
+        break;
+    case 'momo':
+        require_once('Controllers/QRMomoController.php');
+        $controller_obj = new QRMomoController();
+        $controller_obj->processPayment();
+        break;
+    case 'momoatm':
+        require_once('Controllers/ATMMomoController.php');
+        $controller_obj = new ATMMomoController();
+        $controller_obj->processPayment();
+        break;
     default:
         require_once('Controllers/HomeController.php');
-        $controller_obj = new Homecontroller();
+        $controller_obj = new HomeController();
         $controller_obj->list();
         break;
 }

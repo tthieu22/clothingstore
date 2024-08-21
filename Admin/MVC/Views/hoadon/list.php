@@ -12,6 +12,7 @@
       <th scope="col">Tên Khách Hàng</th>
       <th scope="col">Ngày đặt hàng</th>
       <th scope="col">Tổng tiền</th>
+      <th scope="col">Tổng tiền lãi</th>
       <th scope="col">Địa chỉ</th>
       <th scope="col">SĐT</th>
       <th scope="col">Trạng thái</th>
@@ -24,16 +25,17 @@
         <td><?= $row['NguoiNhan'] ?></td>
         <td><?= $row['NgayLap'] ?></td>
         <td><?= number_format($row['TongTien']) ?>VNĐ</td>
+        <td><?= number_format($row['TongTienLai']) ?>VNĐ</td>
         <td><?= $row['DiaChi'] ?></td>
         <td><?= $row['SDT'] ?></td>
-        <td><?php if($row['TrangThai']==0){
-            echo 'Chưa xét duyệt';
-        }else{
-            echo 'Đã xét duyệt';
-        }
-        ?></td>
+        <td><?php if ($row['TrangThai'] == 0) {
+              echo 'Chưa xét duyệt';
+            } else {
+              echo 'Đã xét duyệt';
+            }
+            ?></td>
         <td>
-          <a href="?mod=hoadon&act=chitiet&id=<?= $row['MaHD'] ?>" class="btn btn-success" >Xem chi tiết</a>
+          <a href="?mod=hoadon&act=chitiet&id=<?= $row['MaHD'] ?>" class="btn btn-success">Xem chi tiết</a>
           <a href="?mod=hoadon&act=delete&id=<?= $row['MaHD'] ?>" onclick="return confirm('Bạn có thật sự muốn xóa ?');" type="button" class="btn btn-danger">Xóa</a>
         </td>
       </tr>

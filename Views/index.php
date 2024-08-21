@@ -41,25 +41,30 @@
     <link rel="stylesheet" href="public/css/responsive.css">
     <!-- modernizr js -->
     <script src="public/js/vendor/modernizr-2.8.3.min.js"></script>
+
 </head>
 
 <body>
-    <!-- header section start -->
     <?php
     require_once("header_footer/header.php")
     ?>
     <!-- header section end -->
+    <div id="content">
 
-    <!-- slider-section-start -->
-    <?php
-    require_once("dieuhuong.php")
-    ?>
-    <!-- slider section end -->
+        <!-- slider-section-start -->
+        <?php
+        require_once("dieuhuong.php")
+        ?>
+        <!-- slider section end -->
 
-    <!-- footer section start -->
+        <!-- footer section start -->
+        
+    </div>
     <?php
-    require_once("header_footer/footer.php")
+        require_once("header_footer/footer.php")
     ?>
+    <!-- header section start -->
+    
     <!-- footer section end -->
     <!-- all js here -->
     <!-- jquery latest version -->
@@ -84,6 +89,16 @@
     <script src="public/js/plugins.js"></script>
     <!-- main js -->
     <script src="public/js/main.js"></script>
+
 </body>
+<script>
+     function showLoginForm() {
+        document.getElementById('login-modal').classList.remove('hidden');
+    }
+
+    function closeLoginForm() {
+        document.getElementById('login-modal').classList.add('hidden');
+    }
+</script>
 
 </html>
